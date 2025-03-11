@@ -1,0 +1,16 @@
+kind: Pod
+apiVersion: v1
+metadata:
+ name: podruby
+ labels:
+   env: prod
+   cls: dev
+spec:
+  containers:
+    -  name: cont12
+       image: ubuntu
+       command: ["/bin/bash","-c","while true; do echo ruby-adhana; sleep 5; done"]
+  tolerations:
+     - key: "CriticalAddonsOnly"
+       operator: "Exists"
+       effect: "NoSchedule"
