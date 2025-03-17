@@ -1,0 +1,24 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: repliruby
+spec:
+  replicas: 4
+  selector:
+    fbd: hry
+  template:
+    metadata:
+      labels:
+        fbd: hry
+    spec:
+      containers:
+        - name: cont1
+          image: nginx
+          command: ["/bin/bash","-c","while true; do echo ruby-ruby; sleep 5; done"]
+          ports:
+           - containerPort: 80
+      tolerations:
+        - key: "CriticalAddonsOnly"
+          effect: "NoSchedule"
+          operator: "Exists"  
+      

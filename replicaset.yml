@@ -1,0 +1,29 @@
+kind: ReplicaSet
+apiVersion: apps/v1
+metadata:
+  name: replica
+spec:
+  replicas: 2
+  selector:
+    matchExpressions:
+      - key: fbd
+        operator: In
+        values: [tig, leh]
+      - key: enb
+        operator: NotIn
+        values: [prod, jok]
+  template:
+    metadata:
+      labels:
+        fbd: tig
+    spec:
+      containers:
+        - name: cont1
+          image: ubuntu
+          command: ["/bin/bash","-c","while true; do echo ruby-adhana; sleep 5; done"]
+          ports:
+            - containerPort: 80
+      tolerations:
+        - key: "CriticalAddonsOnly"
+          effect: "NoSchedule"
+          operator: "Exists"

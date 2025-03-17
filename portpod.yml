@@ -1,0 +1,17 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: portpod
+spec:
+  containers:
+    - name: cont12
+      image: nginx
+      command: ["/bin/bash","-c","while true; do echo Ruby-adhana; sleep 5; done"]
+      ports:
+        -  containerPort: 80
+
+  tolerations:
+    - key: "CriticalAddonsOnly"
+      operator: "Exists"
+      effect: "NoSchedule"
+

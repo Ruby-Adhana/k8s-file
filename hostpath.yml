@@ -1,0 +1,21 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: rubypod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: gke-cluster-1-default-pool-c4690e7a-36kt  # 🔹 Schedule Pod on this specific node
+  containers:
+    - name: cont1
+      image: ubuntu
+      command: ["/bin/bash","-c","apt update -y && apt install python3 -y && python3 -m http.server 8080 --bind 0.0.0.0 & while true; do echo ruby-hello; sleep 5; done"]
+      ports:
+        - containerPort: 8080
+      volumeMounts:
+        - mountPath: /tmp/rubycont
+          name: test-hostpath
+  volumes:
+    - name: test-hostpath
+      hostPath:
+        path: /tmp/rubynode
+

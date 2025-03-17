@@ -1,0 +1,26 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: rubydeploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+       fbd: hry
+  template:
+    metadata:
+      labels:
+       fbd: hry
+
+    spec:
+      containers:
+        - name: cont1
+          image: ubuntu
+          command: ["/bin/bash", "-c", "apt update -y && apt install -y python3 && python3 -m http.server 8080 & while true; do echo ruby-adhana; sleep 5; done"]
+          ports:
+             - containerPort: 8080
+      tolerations:
+         - key: "CriticalAddonsOnly"
+           effect: "NoSchedule"
+           operator: "Exists"
+

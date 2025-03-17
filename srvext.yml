@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: srvext
+spec:
+  selector:
+    env: ops
+  type: ExternalName
+  externalName: rubyadhana.com
+  ports:
+    - protocol: TCP
+      port: 8080
+
